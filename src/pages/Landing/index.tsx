@@ -62,7 +62,7 @@ const Landing: React.FC = () => {
   return (
   <div>
     <div>
-        <strong> Fetch Random Data User </strong>
+        <h1> Fetch Random Data User </h1>
     </div>
 
         <div>

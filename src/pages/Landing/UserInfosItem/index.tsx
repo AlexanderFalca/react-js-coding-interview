@@ -26,7 +26,7 @@ const UserInfosItem: React.FC<UserInfosProps> = ({ user }) => (
     height={90}
     width={90}
      />
-    <h1>{user.name.first} {user.name.last}</h1>
+    <h2>{user.name.first} {user.name.last}</h2>
   </>
 );
 
