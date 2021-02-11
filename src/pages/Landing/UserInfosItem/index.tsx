@@ -1,25 +1,33 @@
 import React from 'react';
 
-export interface IUserInfos {
+export interface UserInfos {
+  name : IUserName;
+  picture: IUserPicture;
+}
 
-// eslint-disable-next-line camelcase
-    avatar_url: string;
-    login: string;
+interface IUserPicture {
+  thumbnail: string;
+}
+
+interface IUserName {
+    first: string;
+    last: string;
+    title: string;
 }
 
 interface UserInfosProps {
-  user : IUserInfos;
+  user : UserInfos
 }
 
 const UserInfosItem: React.FC<UserInfosProps> = ({ user }) => (
-  <div>
+  <>
     <img
-    src={user.avatar_url}
+    src={user.picture.thumbnail}
     height={90}
     width={90}
      />
-    <h1>{user.login}</h1>
-  </div>
+    <h1>{user.name.first} {user.name.last}</h1>
+  </>
 );
 
 export default UserInfosItem;
