@@ -69,7 +69,7 @@ const Landing: React.FC = () => {
 
         <div>
                 <button disabled={page === undefined} onClick={nextUser}>
-                    Next User
+                    Fetch Next User
                     </button>
             </div>
 
