@@ -1,10 +1,5 @@
 import React from 'react';
 
-export interface UserInfos {
-  name : IUserName;
-  picture: IUserPicture;
-}
-
 interface IUserPicture {
   thumbnail: string;
 }
@@ -13,6 +8,11 @@ interface IUserName {
     first: string;
     last: string;
     title: string;
+}
+
+export interface UserInfos {
+  name : IUserName;
+  picture: IUserPicture;
 }
 
 interface UserInfosProps {
@@ -26,7 +26,7 @@ const UserInfosItem: React.FC<UserInfosProps> = ({ user }) => (
     height={90}
     width={90}
      />
-    <h2>{user.name.first} {user.name.last}</h2>
+    <h3>{user.name.title} {user.name.first} {user.name.last}</h3>
   </>
 );
 

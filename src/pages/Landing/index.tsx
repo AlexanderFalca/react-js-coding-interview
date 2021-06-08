@@ -1,39 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import UserInfosItem, { UserInfos } from './UserInfosItem';
+import UserInfosItem, { UserInfos } from '../UserInfosItem';
 import api from '../../services/api';
 
 const Landing: React.FC = () => {
   const [randomUserDataJSON, setRandomUserDataJSON] = useState<string>();
   const [usersInfos, setUsersInfos] = useState<UserInfos[]>([]);
   const [page, setPage] = useState(1);
-  /* const prevPage = useCallback(() => {
-    if (page === 1) return;
-    const pageNumber = page - 1;
-    setPage(pageNumber);
-  }, [page]); */
-  const nextPage = useCallback(() => {
+
+  const nextUser = useCallback(() => {
     if (page === undefined) return;
     const pageNumber = page + 1;
     setPage(pageNumber);
   }, [page]);
-  /* const deleteGridItem = useCallback(
-    async id => {
-      try {
-        await api.delete(`/products/${id}`);
-        const bla = products.filter(
-          (deliveryman: IProduct) => deliveryman.id !== id,
-        );
-        setFilteredProducts(bla);
-      } catch (err) {
-        console.log('Erro');
-      }
-    },
-    [products],
-  ); */
+
   useEffect(() => {
     async function fetchData(pageNumber = page) {
       const request = await api.get(`/api?page=${pageNumber}`);
+
       setRandomUserDataJSON(JSON.stringify(request.data, null, 2) || 'No user data found.');
+
       if (request.data.results === undefined) return;
 
       setUsersInfos([
@@ -48,17 +33,25 @@ const Landing: React.FC = () => {
       console.error(error);
     }
   }, [page]);
-  /* const [user, setUser] = useState<IUser>();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     api
-      .get(`/users/${id}`)
-      .then(response => setUser(response.data))
-      .catch(err => {
+      .get(`/api?page=${page}`)
+      .then((request) => {
+        setRandomUserDataJSON(JSON.stringify(request.data, null, 2) || 'No user data found.');
+        if (request.data.results === undefined) return;
+
+        setUsersInfos([
+          ...usersInfos,
+          ...request.data.results,
+        ]);
+      })
+      .catch((err) => {
       // eslint-disable-next-line no-console
-      console.error('Ocorreu um erro ao buscar os itens.');
+        console.error('No user data found.', err);
       });
-  }, [id]); */
+  }, [page]); */
+
   return (
   <div>
     <div>
@@ -75,19 +68,18 @@ const Landing: React.FC = () => {
         </div>
 
         <div>
-                {/* <button disabled={page === 1} onClick={prevPage}>
-                    Before
-                    </button> */}
-                <button disabled={page === undefined} onClick={nextPage}>
+                <button disabled={page === undefined} onClick={nextUser}>
                     Next User
                     </button>
             </div>
 
         <div>
           <div>
-            <h1> JSON - Last user's information </h1>
+            <h2>Last user's information JSON</h2>
           </div>
+          <pre>
           {randomUserDataJSON}
+          </pre>
         </div>
   </div>
   );
